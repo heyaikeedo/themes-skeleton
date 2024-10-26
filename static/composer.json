@@ -1,0 +1,38 @@
+{
+    "name": "heyaikeedo/starter",
+    "description": "Aikeedo theme starter",
+    "version": "1.0.0",
+    "type": "aikeedo-theme",
+    "homepage": "https://aikeedo.com",
+    "time": "2024-03-21",
+    "license": "AIKEEDO",
+    "authors": [
+        {
+            "name": "Aikeedo",
+            "email": "hey@aikeedo.com",
+            "homepage": "https://aikeedo.com",
+            "role": "Owner"
+        }
+    ],
+    "support": {
+        "chat": "https://aikeedo.com/",
+        "docs": "https://docs.aikeedo.com/",
+        "email": "support@aikeedo.com",
+        "forum": "https://aikeedo.com/",
+        "issues": "https://aikeedo.com/",
+        "rss": "https://aikeedo.com/",
+        "source": "https://github.com/heyaikeedo",
+        "wiki": "https://docs.aikeedo.com/"
+    },
+    "require": {
+        "heyaikeedo/composer": "^1.0.0"
+    },
+    "extra": {
+        "title": "Starter",
+        "description": "Aikeedo theme starter",
+        "logo": "https://aikeedo.com/",
+        "icon": "https://aikeedo.com/",
+        "status": "active"
+    },
+    "autoload": {}
+}

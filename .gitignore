@@ -1,0 +1,21 @@
+# VS CODE Workspace file
+*.code-workspace
+
+# IntelliJ IDE files
+**/.idea
+
+# OS X Desktop Services Store files
+**/.DS_Store
+
+# Vendors
+/node_modules/
+
+# Keep empty directories
+!.gitkeep
+
+# Dist directory
+dist
+
+# .env files
+.env.*
+!.env
