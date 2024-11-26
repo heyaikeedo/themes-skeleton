@@ -67,7 +67,7 @@ export default defineConfig({
                     // Check if the file exists in local static directory
                     const localPath = path.join(process.cwd(), 'static', req.url);
                     if (fs.existsSync(localPath)) {
-                        // Return false to serve the local file
+                        // Return the URL to serve the local file
                         return req.url;
                     }
                     // Return undefined to proxy the request
