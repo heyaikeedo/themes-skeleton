@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite';
 import FullReload from 'vite-plugin-full-reload';
 import cpx from 'cpx';
 import path from 'path';
+import fs from 'fs';
 
 // Load environment variables
 const env = loadEnv('', process.cwd(), '');
@@ -39,7 +40,7 @@ function cpxCopyPlugin() {
 
 export default defineConfig({
     root: './', // Source files directory
-    base: '/', // Base public path for assets
+    base: './', // Base public path for assets
     publicDir: 'static',
     build: {
         manifest: true,
@@ -59,13 +60,33 @@ export default defineConfig({
         port: 5174,
 
         proxy: {
-            // Proxy other requests to the Shopify local dev server
-            // See https://docs.aikeedo.com/development/local-development-guide
-            '^/(?!src/|@vite|node_modules/)': 'http://0.0.0.0:8000'
+            // Handle assets conditionally
+            '/assets/': {
+                target: 'http://0.0.0.0:8000',
+                bypass: (req) => {
+                    // Check if the file exists in local static directory
+                    const localPath = path.join(process.cwd(), 'static', req.url);
+                    if (fs.existsSync(localPath)) {
+                        // Return the URL to serve the local file
+                        return req.url;
+                    }
+                    // Return undefined to proxy the request
+                    return undefined;
+                }
+            },
+            // Proxy all other requests except Vite's own paths
+            '^/(?!src/|@vite|node_modules/)': {
+                target: 'http://0.0.0.0:8000'
+            }
         },
     },
     plugins: [
         FullReload(['./**/*.twig']), // Watch Twig files for changes
         cpxCopyPlugin()
-    ]
+    ],
+    resolve: {
+        alias: {
+            '@src': path.resolve(__dirname, 'src'),
+        },
+    },
 });
