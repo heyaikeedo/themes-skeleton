@@ -16,6 +16,10 @@
 # Dist directory
 dist
 
+# Packing
+pack
+*.zip
+
 # .env files
 .env.*
 !.env

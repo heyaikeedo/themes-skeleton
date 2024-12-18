@@ -1,0 +1,32 @@
+.button {
+  @apply inline-flex items-center justify-center gap-2
+        
+        px-4 h-10 rounded-lg
+
+        text-button-content 
+        bg-button 
+        
+        text-center 
+        text-base
+        font-medium 
+
+        transition-colors
+        
+        hover:outline
+        focus:outline
+        outline-1
+        outline-offset-2
+        outline-button
+        whitespace-nowrap;
+}
+
+.button-outline {
+  @apply bg-transparent 
+        border 
+        border-line-dimmed 
+        text-content
+        hover:border-line
+        focus:border-line
+        hover:outline-none
+        focus:outline-none;
+}

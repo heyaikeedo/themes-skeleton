@@ -1,0 +1,20 @@
+{% extends "@theme/layouts/theme.twig" %}
+
+{% block template %}
+	<div class="container flex flex-col gap-8 justify-between items-center my-20 text-center">
+		{% include "@theme/sections/header.twig" %}
+
+		<div class="flex flex-col gap-1">
+			<h2>{{ dp__('theme', 'custom', 'Custom page') }}</h2>
+			<p class="text-content-dimmed">{{ dp__('theme', 'custom', 'This is a custom page') }}</p>
+		</div>
+
+		<a href="/" class="text-sm text-info group">
+			<i class="ti ti-arrow-left"></i>
+
+			<span class="group-hover:underline">
+				{{ dp__('theme', 'button', 'Go back')  }}
+			</span>
+		</a>
+	</div>
+{% endblock template %}

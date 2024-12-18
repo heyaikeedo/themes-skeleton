@@ -38,6 +38,49 @@ function cpxCopyPlugin() {
     };
 }
 
+function localeExtractPlugin() {
+    return {
+        name: 'vite-plugin-locale-extract',
+        apply: 'serve', // Run during development
+
+        configureServer(server) {
+            // Watch for changes in JS/TS/Twig files
+            const watcher = server.watcher;
+            const extractLocale = () => {
+                // Import and run the locale extraction script
+                import('./scripts/locale-extract.mjs')
+                    .then(module => module.default())
+                    .catch(console.error);
+            };
+
+            // Initial extraction
+            extractLocale();
+
+            // Watch for relevant file changes
+            watcher.add([
+                'src/**/*.{js,ts,jsx,tsx}',
+                'static/**/*.{js,ts,jsx,tsx}',
+                '**/*.twig'
+            ]);
+
+            watcher.on('change', (file) => {
+                if (/\.(js|ts|jsx|tsx|twig)$/.test(file)) {
+                    console.log('🌍 Extracting translations...');
+                    extractLocale();
+                }
+            });
+        },
+
+        // Run during build
+        buildStart() {
+            // Import and run the locale extraction script during build
+            return import('./scripts/locale-extract.mjs')
+                .then(module => module.default())
+                .catch(console.error);
+        }
+    };
+}
+
 export default defineConfig({
     root: './', // Source files directory
     base: './', // Base public path for assets
@@ -62,7 +105,7 @@ export default defineConfig({
         proxy: {
             // Handle assets conditionally
             '/assets/': {
-                target: 'http://0.0.0.0:8000',
+                target: env.AIKEEDO_SERVER || 'http://0.0.0.0:8000',
                 bypass: (req) => {
                     // Check if the file exists in local static directory
                     const localPath = path.join(process.cwd(), 'static', req.url);
@@ -76,13 +119,14 @@ export default defineConfig({
             },
             // Proxy all other requests except Vite's own paths
             '^/(?!src/|@vite|node_modules/)': {
-                target: 'http://0.0.0.0:8000'
+                target: env.AIKEEDO_SERVER || 'http://0.0.0.0:8000'
             }
         },
     },
     plugins: [
-        FullReload(['./**/*.twig']), // Watch Twig files for changes
-        cpxCopyPlugin()
+        FullReload(['./**/*.twig', './static/locale/**/*.po']), // Watch Twig files for changes
+        cpxCopyPlugin(),
+        localeExtractPlugin()
     ],
     resolve: {
         alias: {

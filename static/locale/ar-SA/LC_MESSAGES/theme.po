@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Theme Translations\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language: ar-SA\n"
+"Language-Team: \n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
+"X-Domain: theme\n"
+
+msgctxt "button"
+msgid "Sign in"
+msgstr ""
+
+msgctxt "button"
+msgid "Get started"
+msgstr ""
+
+msgctxt "custom"
+msgid "Custom page"
+msgstr ""
+
+msgctxt "custom"
+msgid "This is a custom page"
+msgstr ""
+
+msgctxt "button"
+msgid "Go back"
+msgstr ""
+
+msgctxt "header"
+msgid "Aikeedo Theme Starter"
+msgstr ""
+
+msgctxt "header"
+msgid "This is a starter theme for Aikeedo"
+msgstr ""
+
+msgid "Unlimited"
+msgstr ""

@@ -1,0 +1,18 @@
+<header class="flex flex-col gap-8 justify-between items-center text-center">
+	{% if option.color_scheme.modes is not defined or option.color_scheme.modes|length > 1 %}
+		<mode-switcher>
+			<button type="button" class="text-2xl md:text-lg text-content-dimmed hover:text-content" aria-label="Dark/Light mode toggle">
+				<i class="ti ti-moon-stars dark:hidden"></i>
+				<i class="hidden ti ti-sun-filled dark:block"></i>
+			</button>
+		</mode-switcher>
+	{% endif %}
+
+	<img src="{{ '/assets/logo.svg' | asset_url }}" alt="Aikeedo logo" class="hidden dark:block">
+	<img src="{{ '/assets/logo-dark.svg' | asset_url }}" alt="Aikeedo logo" class="dark:hidden">
+
+	<div class="flex flex-col gap-1">
+		<h1>{{ dp__('theme', 'header', 'Aikeedo Theme Starter') }}</h1>
+		<p class="text-lg md:text-xl text-content-dimmed">{{ dp__('theme', 'header', 'This is a starter theme for Aikeedo') }}</p>
+	</div>
+</header>

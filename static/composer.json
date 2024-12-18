@@ -28,11 +28,16 @@
         "heyaikeedo/composer": "^1.0.0"
     },
     "extra": {
+        "entry-class": "Aikeedo\\Starter\\Theme",
         "title": "Starter",
         "description": "Aikeedo theme starter",
         "logo": "https://aikeedo.com/",
         "icon": "https://aikeedo.com/",
         "status": "active"
     },
-    "autoload": {}
+    "autoload": {
+        "psr-4": {
+            "Aikeedo\\Starter\\": "src/"
+        }
+    }
 }

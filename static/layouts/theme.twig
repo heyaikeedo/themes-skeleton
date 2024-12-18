@@ -1,99 +1,39 @@
 <!DOCTYPE html>
 <html lang="{{ theme_locale ?? 'en-US' }}">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta name="theme-color" content="">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="">
+		<meta name="description" content="{{ option.site.description ?? null }}">
+		<meta name="keywords" content="{{ option.site.keywords ?? null }}">
 
-  <meta name="description" content="{{ option.site.description ?? null }}">
-  <meta name="keywords" content="{{ option.site.keywords ?? null }}">
+		<link rel="icon" type="image/x-icon" href="{{ option.brand.favicon ?? ('favicon.ico' | asset_url) }}">
 
-  <link rel="icon" type="image/x-icon"
-    href="{{ option.brand.favicon ?? ('favicon.ico' | asset_url) }}">
+		{% if env.THEME_ASSETS_SERVER is defined and env.THEME_ASSETS_SERVER %}
+			<script type="module" src="{{ env.THEME_ASSETS_SERVER }}/@vite/client"></script>
+		{% endif %}
 
-  {% if env.THEME_ASSETS_SERVER is defined and env.THEME_ASSETS_SERVER %}
-  <script type="module"
-    src="{{ env.THEME_ASSETS_SERVER }}/@vite/client"></script>
-  {% endif %}
+		{% include "@theme/snippets/css.twig" %}
+		<link rel="stylesheet" href="{{ '/src/css/index.css' | asset_url }}">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+		{%- include "@theme/snippets/script-tags/head.twig" -%}
+		{% include "@theme/snippets/js.twig" %}
 
-  <style>
-    :root {
-      /* Typography */
-      --font-family-primary: 'Inter', sans-serif;
-      --font-family-secondary: 'Inter', sans-serif;
+		<title>
+			{% block title %}{% endblock %}
+			{{- block('title') is empty ? '' : ' | ' -}}
+			{{- option.site.name ?? null -}}
+		</title>
+	</head>
 
-      /* Theme colors */
-      --color-primary: 36 40 44;
-      --color-secondary: 90 93 96;
-    }
+	<body class="antialiased bg-main text-content font-primary group/body" x-data>
+		{%- include "@theme/snippets/script-tags/body.twig" -%}
 
-    :root[data-mode="dark"] {
-      --color-primary: 227 228 228;
-      --color-secondary: 172 174 175;
-    }
-  </style>
+		{% block template %}{% endblock %}
 
-  <link rel="stylesheet" href="{{ '/src/css/index.css' | asset_url }}">
-
-  {%- include "@theme/snippets/script-tags/head.twig" -%}
-
-  <script>
-    window.currency = JSON.parse('{{currency|json_encode|raw}}');
-    document.cookie = `locale={{theme_locale}}; expires=${new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 365).toGMTString()}; path=/`
-  </script>
-
-  <script>
-    let scheme = {
-      ...{
-        modes: ['light', 'dark'],
-        default: 'system',
-      },
-      ...JSON.parse(`{{ (option.color_scheme ? option.color_scheme|json_encode : '{}')|raw }}`),
-    };
-
-    if (scheme.modes.length > 1) {
-      if (!('mode' in localStorage) || scheme.modes.indexOf(localStorage.mode) === -1) {
-        if (scheme.default === 'system') {
-          localStorage.mode = window.matchMedia('(prefers-color-scheme: dark)').matches
-            ? 'dark'
-            : 'light';
-        } else {
-          localStorage.mode = scheme.default;
-        }
-      }
-    } else if (scheme.modes.length === 1) {
-      localStorage.mode = scheme.modes[0];
-    } else {
-      localStorage.mode = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
-    }
-
-    document.documentElement.dataset.mode = localStorage.mode;
-  </script>
-
-  <title>
-    {%- block title -%}{%- endblock -%}
-    {{- block('title') is empty ? '' : ' | ' -}}
-    {{- option.site.name ?? null -}}
-  </title>
-
-</head>
-
-<body>
-  {%- include "@theme/snippets/script-tags/body.twig" -%}
-  {% block template %}{% endblock %}
-
-  <script type="module" src="{{ '/src/js/index.js' | asset_url }}"></script>
-  {%- include "@theme/snippets/script-tags/end.twig" -%}
-</body>
-
+		<script type="module" src="{{ '/src/js/index.js' | asset_url }}"></script>
+		{%- include "@theme/snippets/script-tags/end.twig" -%}
+	</body>
 </html>

@@ -1,0 +1,20 @@
+x-avatar,
+.avatar {
+  @apply relative w-10 h-10 rounded-full bg-intermediate text-intermediate-content flex items-center justify-center font-bold shrink-0 text-xs uppercase whitespace-nowrap overflow-hidden;
+
+  & > img {
+    @apply absolute top-0 left-0 object-cover w-full h-full;
+  }
+
+  & > svg {
+    @apply w-1/2 h-1/2;
+  }
+
+  & > i {
+    @apply text-2xl;
+  }
+
+  &.avatar-lg {
+    @apply w-14 h-14;
+  }
+}

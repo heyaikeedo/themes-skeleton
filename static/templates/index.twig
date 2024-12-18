@@ -1,7 +1,38 @@
 {% extends "@theme/layouts/theme.twig" %}
 
 {% block template %}
-<div class="container my-20">
-  <h1 class="text-4xl font-bold">Theme Skeleton</h1>
-</div>
+	<div class="container flex flex-col gap-8 justify-between items-center my-20 text-center">
+		{% include "@theme/sections/header.twig" %}
+
+		{% if user is defined %}
+			<a href="/app" class="flex gap-2 items-center p-2 rounded-full border duration-300 border-line-dimmed hover:border-line text-content-dimmed hover:text-content">
+				{% set full_name = user.first_name ~ " " ~ user.last_name %}
+				<x-avatar title="{{ full_name }}" src="{{ user.avatar }}" :length="2"></x-avatar>
+				<span class="flex flex-col text-left">
+					<span class="font-medium text-content">{{ full_name }}</span>
+					<span class="text-sm text-content-dimmed">{{ user.email }}</span>
+				</span>
+
+				<i class="ml-4 text-xl ti ti-chevron-right"></i>
+			</a>
+		{% else %}
+			<div class="flex gap-2 items-center">
+				<a href="/login" class="button button-outline">
+					{{ dp__('theme', 'button', 'Sign in')  }}
+				</a>
+
+				<a href="/signup" class="button">
+					{{ dp__('theme', 'button', 'Get started')  }}
+				</a>
+			</div>
+		{% endif %}
+
+		<a href="/custom" class="text-sm text-info group">
+			<span class="group-hover:underline">
+				{{ dp__('theme', 'button', 'Custom page')  }}
+			</span>
+
+			<i class="ti ti-arrow-right"></i>
+		</a>
+	</div>
 {% endblock template %}
