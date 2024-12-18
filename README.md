@@ -181,7 +181,7 @@ theme-starter/
    ENVIRONMENT=dev
 
    # Enable debug mode for development
-   APP_DEBUG=1
+   DEBUG=1
 
    # Disable caching for development
    CACHE=0
